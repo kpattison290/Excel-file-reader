@@ -1,0 +1,27 @@
+import numpy as np
+import pandas as pd
+import os
+
+    # QC log directory
+    directory = r"C:\User\Name\Location\"
+    
+def get_number_cars(filename):
+    
+    # Read specific cells G-M18
+    df = pd.read_excel(filename, header=None, skiprows=17, nrows=1, usecols="G:M")
+
+    # Convert pandas dataframe to series
+    series = df.values.squeeze()
+
+    # Return the count of the number of values, excluding 'NaN'
+    return np.count_nonzero(~np.isnan(series))
+    
+  total_cars = 0
+    # For each file in the folder
+    
+    for filename in os.listdir(directory): 
+    filepath = os.path.join(directory, filename)
+    print (filepath) 
+    
+    # Get the number of cars for the file and add it to the total
+    total_cars += get_number_cars(filepath)  
